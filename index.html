@@ -1,0 +1,762 @@
+<html>
+    <head>
+        <!-- <base href="html/"> -->
+        <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title data-lang-ru="Портфолио Roboji" data-lang-en="Roboji Portfolio">Roboji Portfolio</title>
+    <style>
+    :root {
+        --primary: #1a1a2e;
+        --secondary: #16213e;
+        --accent: #0f3460;
+        --highlight: #e94560;
+        --text: #ffffff;
+        --light: #f0f0f0;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--primary);
+        color: var(--text);
+        overflow-x: hidden;
+    }
+
+    .navbar {
+        background: rgba(26, 26, 46, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 1.2rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .navbar a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .navbar a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: var(--highlight);
+        transition: all 0.3s ease;
+    }
+
+    .navbar a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at center, var(--secondary) 0%, var(--primary) 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent 45%, var(--highlight) 45%, var(--highlight) 55%, transparent 55%);
+        opacity: 0.1;
+        animation: shine 10s linear infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    .hero-content {
+        max-width: 800px;
+        text-align: center;
+        padding: 2rem;
+        background: rgba(22, 33, 62, 0.5);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, var(--text), var(--highlight));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .projects {
+        padding: 6rem 2rem;
+        background: var(--secondary);
+    }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .project-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+        border-radius: 20px;
+        padding: 2.5rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(233, 69, 96, 0.1), transparent);
+        transition: 0.5s;
+    }
+
+    .project-card:hover::before {
+        left: 100%;
+    }
+
+    .project-card:hover {
+        transform: translateY(-15px) scale(1.03);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        border-color: var(--highlight);
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(255, 255, 255, 0.05));
+    }
+
+    .project-card h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+        background: linear-gradient(45deg, var(--text), var(--highlight));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .project-card p {
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .project-links a {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background: linear-gradient(45deg, var(--accent), var(--highlight));
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-links a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+    }
+
+    .skills {
+        padding: 6rem 2rem;
+        background: var(--primary);
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .skill-item {
+        text-align: center;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .skill-item::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(233, 69, 96, 0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: all 0.4s ease;
+    }
+
+    .skill-item:hover::after {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    .skill-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        border-color: var(--highlight);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .skill-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--text), var(--highlight));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        transition: all 0.3s ease;
+    }
+
+    .skill-item:hover .skill-icon {
+        transform: scale(1.2);
+    }
+
+    .skill-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text);
+    }
+
+    .skill-item p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.1rem;
+    }
+
+    .contacts {
+        padding: 6rem 2rem;
+        background: var(--secondary);
+    }
+
+    .contacts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .contact-item {
+        text-align: center;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s ease;
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .contact-item:hover {
+        transform: translateY(-10px);
+        border-color: var(--highlight);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(255, 255, 255, 0.05));
+    }
+
+    .contact-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: var(--highlight);
+    }
+
+    .contact-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-item p {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    .floating {
+        animation: float 4s ease-in-out infinite;
+    }
+
+    /* Добавляем стили для скролла */
+    /* Hamburger Menu Styles */
+    .menu-btn {
+        display: none;
+        cursor: pointer;
+        width: 30px;
+        height: 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .menu-btn__burger {
+        width: 30px;
+        height: 3px;
+        background: var(--text);
+        border-radius: 5px;
+        transition: all .3s ease-in-out;
+    }
+
+    .menu-btn__burger::before,
+    .menu-btn__burger::after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 3px;
+        background: var(--text);
+        border-radius: 5px;
+        transition: all .3s ease-in-out;
+    }
+
+    .menu-btn__burger::before {
+        transform: translateY(-8px);
+    }
+
+    .menu-btn__burger::after {
+        transform: translateY(8px);
+    }
+
+    /* Animation Classes */
+    .menu-btn.open .menu-btn__burger {
+        transform: translateX(-50px);
+        background: transparent;
+    }
+
+    .menu-btn.open .menu-btn__burger::before {
+        transform: rotate(45deg) translate(35px, -35px);
+    }
+
+    .menu-btn.open .menu-btn__burger::after {
+        transform: rotate(-45deg) translate(35px, 35px);
+    }
+
+    @media screen and (max-width: 768px) {
+        .menu-btn {
+            display: block;
+            position: absolute;
+            top: 18px;
+            right: 50px;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .nav-links.active {
+            right: 0;
+            opacity: 1;
+        }
+
+        .navbar {
+            padding: 1.2rem;
+            justify-content: flex-end;
+        }
+    }
+    .lang-toggle {
+        background: linear-gradient(45deg, var(--accent), var(--highlight));
+        color: var(--text);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .lang-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(233, 69, 96, 0.3);
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--highlight);
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .social-btn {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        /* background: linear-gradient(135deg, var(--accent), var(--highlight)); */
+        color: var(--text);
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .social-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+        border-color: var(--highlight);
+        background: transparent;
+    }
+
+    .social-btn i {
+        scale: 1.5;
+        transition: transform 0.3s ease;
+    }
+
+    .social-btn:hover i {
+        transform: scale(1.2);
+    }
+
+
+    @media screen and (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+            align-items: center;
+            padding: 1.2rem;
+            gap: 0.8rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-content {
+            padding: 1rem;
+            margin: 1rem;
+        }
+
+        .projects, .skills, .contacts {
+            padding: 4rem 1rem;
+        }
+
+        .project-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .contacts-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .skill-item {
+            padding: 1.5rem;
+        }
+
+        .project-card {
+            padding: 1.5rem;
+        }
+
+        .contact-item {
+            padding: 1.5rem;
+        }
+
+        .social-links {
+            gap: 0.8rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .skills-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+        }
+    }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-code-here.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-brands/css/uicons-brands.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="menu-btn">
+        <div class="menu-btn__burger"></div>
+    </div>
+    <div class="nav-links">
+        <a href="#home" data-lang-ru="Главная" data-lang-en="Home">Home</a>
+        <a href="#projects" data-lang-ru="Проекты" data-lang-en="Projects">Projects</a>
+        <a href="#skills" data-lang-ru="Навыки" data-lang-en="Skills">Skills</a>
+        <a href="#contacts" data-lang-ru="Контакты" data-lang-en="Contacts">Contacts</a>
+        <a href="https://t.me/r0boji" data-lang-ru="Telegram канал" data-lang-en="Telegram channel">Telegram channel</a>
+        <button id="langToggle" class="lang-toggle">
+            <span data-lang-ru="EN" data-lang-en="RU">RU</span>
+        </button>
+    </div>
+</nav>
+
+<section id="home" class="hero">
+    <div class="hero-content">
+    <div style="width: 200px; height: 200px; margin: 0 auto 2rem auto; border-radius: 50%; overflow: hidden; border: 3px solid var(--highlight); box-shadow: 0 0 20px rgba(233, 69, 96, 0.3);">
+        <img src="https://raw.githubusercontent.com/R0boji/R0boji.github.io/refs/heads/main/logo.png" alt="Portrait of a young developer, professional headshot" width="200" height="200" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <h1 class="floating" data-lang-ru="Привет, я Roboji" data-lang-en="Hi, I'm Roboji">Hi, I'm Roboji</h1>
+    <p data-lang-ru="Python Разработчик | Создатель Minecraft Датапаков | Разбработчик Telegram Ботов" data-lang-en="Python Developer | Minecraft Datapack Creator | Telegram Bot Developer">Python Developer | Minecraft Datapack Creator | Telegram Bot Developer</p>
+    <p data-lang-ru="17 лет | Россия" data-lang-en="17 years old | Russia">17 years old | Russia</p>
+    <div class="social-links">
+        <a href="https://t.me/robojign" class="social-btn" title="Telegram">
+            <i class="fi fi-brands-telegram"></i>
+        </a>
+        <a href="https://github.com/R0boji" class="social-btn" title="GitHub">
+            <i class="fi fi-brands-github"></i>
+        </a>
+        <a href="mailto:roboji.public@internet.ru" class="social-btn" title="Email">
+            <i class="fi fi-br-at"></i>
+        </a>
+    </div>
+</div>
+</section>
+
+<section id="projects" class="projects">
+    <h2 data-lang-ru="Мои проекты" data-lang-en="My Projects">My Projects</h2>
+    <div class="project-grid">
+        <div class="project-card">
+            <h3>minetotg</h3>
+            <p data-lang-ru="Библиотека для преобразования Minecraft-форматирования текста в Telegram." data-lang-en="A library for converting Minecraft text formatting to Telegram.">A library for converting Minecraft text formatting to Telegram.</p>
+            <div class="project-links">
+                <a href="https://github.com/R0boji/minetotg" target="_blank">GitHub</a>
+            </div>
+        </div>
+        
+        <div class="project-card">
+            <h3 data-lang-ru="Minecraft Датапаки" data-lang-en="Minecraft Datapacks">Minecraft Datapacks</h3>
+            <p data-lang-ru="Коллекция пользовательских датапаков для Minecraft, добавляющие новые предметы и механики в игру." data-lang-en="Collection of custom Minecraft datapacks adding new items and features to the game.">Collection of custom Minecraft datapacks adding new items and features to the game.</p>
+        </div>
+        
+        <div class="project-card">
+            <h3>Roboji Game News</h3>
+            <p data-lang-ru="Авторский канал о играх с уникальным контентом и обзорами." data-lang-en="Author's gaming channel with unique content and reviews.">Author's gaming channel with unique content and reviews.</p>
+            <div class="project-links">
+                <a href="https://t.me/robojign" target="_blank" data-lang-ru="Подписаться" data-lang-en="Subscribe">Subscribe</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="skills">
+    <h2 data-lang-ru="Технические навыки" data-lang-en="Technical Skills">Technical Skills</h2>
+    <div class="skills-grid">
+        <div class="skill-item">
+            <div class="skill-icon">
+                <i class="fi fi-brands-python"></i>
+            </div>
+            <h3>Python</h3>
+            <p data-lang-ru="Продвинутый уровень" data-lang-en="Advanced Level">Advanced Level</p>
+        </div>
+        
+        <div class="skill-item">
+            <div class="skill-icon">
+                <i class="fi fi-ss-react"></i>
+            </div>
+            <h3 data-lang-ru="React и React Native" data-lang-en="React and React Native">React and React Native</h3>
+            <p data-lang-ru="JavaScript <br> Мобильная и веб разработка" data-lang-en="JavaScript <br> Mobile, Web Dev">JavaScript <br> Mobile, Web Dev</p>
+
+        </div>
+        
+        <div class="skill-item">
+            <div class="skill-icon">
+                <i class="fi fi-brands-telegram"></i>
+            </div>
+            <h3 data-lang-ru="Telegram-Боты" data-lang-en="Telegram Bots">Telegram Bots</h3>
+            <p data-lang-ru="Владение всеми необходимыми библиотеками" data-lang-en="Confident use of all necessary libraries">Confident use of all necessary libraries</p>
+        </div>
+        
+        <div class="skill-item">
+            <div class="skill-icon">
+                <i class="fi fi-bs-cube"></i>
+            </div>
+            <h3>Minecraft</h3>
+            <p data-lang-ru="Разработка датапаков" data-lang-en="Datapack Development">Datapack Development</p>
+        </div>
+    </div>
+</section>
+
+<section id="contacts" class="contacts">
+    <h2 data-lang-ru="Связаться со мной" data-lang-en="Contact Me">Contact Me</h2>
+    <div class="contacts-grid">
+        <a href="https://t.me/r0boji" class="contact-item">
+            <div class="contact-icon">
+                <i class="fi fi-brands-telegram"></i>
+            </div>
+            <h3>Telegram</h3>
+            <p>@robojiign</p>
+        </a>
+        
+        <a href="https://github.com/R0boji" class="contact-item">
+            <div class="contact-icon">
+                <i class="fi fi-brands-github"></i>
+            </div>
+            <h3>GitHub</h3>
+            <p>@R0boji</p>
+        </a>
+        
+        <a href="mailto:roboji.public@internet.ru" class="contact-item">
+            <div class="contact-icon">
+                <i class="fi fi-br-at"></i>
+            </div>
+            <h3>Email</h3>
+            <p>roboji.public@internet.ru</p>
+        </a>
+    </div>
+</section>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Добавляем параллакс эффект для hero секции
+document.addEventListener('mousemove', (e) => {
+    const hero = document.querySelector('.hero-content');
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+    
+    hero.style.transform = `perspective(1000px) rotateY(${mouseX * 5}deg) rotateX(${-mouseY * 5}deg)`;
+});
+
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+let menuOpen = false;
+
+menuBtn.addEventListener('click', () => {
+    if(!menuOpen) {
+        menuBtn.classList.add('open');
+        navLinks.classList.add('active');
+        menuOpen = true;
+    } else {
+        menuBtn.classList.remove('open');
+        navLinks.classList.remove('active');
+        menuOpen = false;
+    }
+});
+
+// Close menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        menuBtn.classList.remove('open');
+        navLinks.classList.remove('active');
+        menuOpen = false;
+    });
+});
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px"
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.project-card, .skill-item, .contact-item').forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(20px)";
+    el.style.transition = "all 0.6s ease-out";
+    observer.observe(el);
+});
+
+let currentLang = 'EN';
+
+function toggleLanguage() {
+    currentLang = currentLang === 'RU' ? 'EN' : 'RU';
+    updateContent();
+    document.getElementById('langToggle').querySelector('span').textContent = 
+        currentLang === 'RU' ? 'EN' : 'RU';
+}
+
+function updateContent() {
+    document.querySelectorAll('[data-lang-ru][data-lang-en]').forEach(element => {
+        element.innerHTML = element.getAttribute(`data-lang-${currentLang}`);
+    });
+}
+
+document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+</script>
+
+</body></html>
